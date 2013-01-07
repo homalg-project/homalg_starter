@@ -1,0 +1,53 @@
+#!/bin/bash
+
+## List of packages you want to have included in the workspace
+## Please never add PolymakeInterface to it, since the polymake session cannot be stored.
+homalg_modules="SCO AbelianSystems AutoDoc D-Modules Gauss GaussForHomalg GradedModules GradedRingForHomalg HomalgToCAS IO_ForHomalg LocalizeRingForHomalg MapleForHomalg MatricesForHomalg Modules RingsForHomalg SCSCP_ForHomalg Sheaves SimplicialObjects SystemTheory ToolsForHomalg VirtualCAS alexander homalg k-Points LessGenerators Conley alexander LetterPlace SingularForHomalg"
+
+## This needs to be your current gap start script
+gap_bin=gap
+
+##The folder where the packages of the homalg project are stored
+package_directory=/home/sebastian/gap/local/pkg
+
+##The filename where the new homalg gap start script should be createt
+start_script=/home/sebastian/bin/autogap
+
+checker=""
+
+cd $package_directory
+for mod in ${homalg_modules}; do
+  cd $mod
+  X=$(md5sum PackageInfo.g | sed 's/ //g')
+  Y=$(cat PackageInfo.checksum | sed 's/ //g')
+  if [ "$X" != "$Y" ]
+    then
+    checker="true"
+    echo $X > PackageInfo.checksum
+  fi
+  cd ..
+done
+
+cd $package_directory
+
+if [ $checker ]
+  then
+  gap -r -R <<EOF
+LoadPackage("io");
+##This needs to be done better
+xx:="${homalg_modules}";
+xx:=SplitString(xx," ");
+for i in xx do
+  LoadPackage( i );
+od;
+??blablfdfhskhks
+function() local a; for a in NamesGVars() do if ISB_GVAR(a) then
+VAL_GVAR(a); fi;od;end;
+last();
+SaveWorkspace("homalg_workspace");
+quit;
+EOF
+fi
+
+echo "gap -R -L ${package_directory}/homalg_workspace \"\$@\"" > $start_script
+chmod +x $start_script
