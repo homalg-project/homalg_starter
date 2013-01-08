@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. init_homalg_starter
+. ${DIR}/init_homalg_starter
 
 ## This part will be tranferred to a new file
 

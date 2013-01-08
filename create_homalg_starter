@@ -1,6 +1,8 @@
 #!/bin/bash
 
-. init_homalg_starter
+DIR=$(cd $(dirname "$0"); pwd)
+
+. ${DIR}/init_homalg_starter
 
 mkdir -p checksums
 
@@ -9,7 +11,8 @@ for mod in ${homalg_modules}; do
   echo $X > checksums/${mod}PackageInfo.checksum
 done
 
-echo ". ${PWD}/homalg_starter" > $start_script
+echo "export DIR=${DIR}" > $start_script
+echo ". ${DIR}/homalg_starter" >> $start_script
 echo "gap -R -L ${PWD}/checksums/homalg_workspace \"\$@\"" >> $start_script
 chmod +x $start_script
 
