@@ -1,16 +1,19 @@
 #!/bin/bash
 
+## This is a sample file. Please copy it to init_homalg_starter, make the copy executable and
+## modify the paths.
+
 
 ## List of packages you want to have included in the workspace
 ## Please never add PolymakeInterface to it, since the polymake session cannot be stored.
 #homalg_modules="SCO AbelianSystems AutoDoc D-Modules Gauss GaussForHomalg GradedModules GradedRingForHomalg HomalgToCAS IO_ForHomalg LocalizeRingForHomalg MapleForHomalg MatricesForHomalg Modules RingsForHomalg SCSCP_ForHomalg Sheaves SimplicialObjects SystemTheory ToolsForHomalg VirtualCAS alexander homalg k-Points LessGenerators Conley alexander LetterPlace SingularForHomalg"
-export homalg_modules="AutoDoc"
+export homalg_modules="packages_you_want_to_trace"
 
 ## This needs to be your current gap start script
 export gap_bin=gap
 
 ##The folder where the packages of the homalg project are stored
-export package_directory=/home/sebastian/gap4r5/local/pkg
+export package_directory=/path/to/the/gap/pkg
 
 ##The filename where the new homalg gap start script should be created
-export start_script=/home/sebastian/bin/autogap
+export start_script=/new/gap/start/script
