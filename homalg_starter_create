@@ -2,24 +2,18 @@
 
 . init_homalg_starter
 
-## This part will be tranferred to a new file
-
-checker=""
+mkdir checksums
 
 for mod in ${homalg_modules}; do
   X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
-  Y=$(cat checksums/${mod}PackageInfo.checksum | sed 's/ //g')
-  if [ "$X" != "$Y" ]
-    then
-    checker="true"
-    ##change this position.
-    echo $X > checksums/${mod}PackageInfo.checksum
-  fi
+  echo $X > checksums/${mod}PackageInfo.checksum
 done
 
-if [ $checker ]
-  then
-  gap -r -R <<EOF
+echo ". ${PWD}/homalg_starter" > $start_script
+echo "gap -R -L ${PWD}/checksums/homalg_workspace \"\$@\"" >> $start_script
+chmod +x $start_script
+
+gap -r -R <<EOF
 LoadPackage("io");
 ##This needs to be done better
 xx:="${homalg_modules}";
@@ -34,5 +28,3 @@ last();
 SaveWorkspace("checksums/homalg_workspace");
 quit;
 EOF
-fi
-
