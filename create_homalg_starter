@@ -8,12 +8,12 @@ mkdir -p checksums
 
 for mod in ${homalg_modules}; do
   X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
-  echo $X > checksums/${mod}PackageInfo.checksum
+  echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
 done
 
 echo "export DIR=${DIR}" > $start_script
 echo ". ${DIR}/homalg_starter" >> $start_script
-echo "gap -R -L ${PWD}/checksums/homalg_workspace \"\$@\"" >> $start_script
+echo "gap -R -L ${DIR}/checksums/homalg_workspace \"\$@\"" >> $start_script
 chmod +x $start_script
 
 gap -r -R <<EOF
@@ -28,6 +28,6 @@ od;
 function() local a; for a in NamesGVars() do if ISB_GVAR(a) then
 VAL_GVAR(a); fi;od;end;
 last();
-SaveWorkspace("checksums/homalg_workspace");
+SaveWorkspace("${DIR}/checksums/homalg_workspace");
 quit;
 EOF

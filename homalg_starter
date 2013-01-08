@@ -2,18 +2,15 @@
 
 . ${DIR}/init_homalg_starter
 
-## This part will be tranferred to a new file
-
 checker=""
 
 for mod in ${homalg_modules}; do
   X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
-  Y=$(cat checksums/${mod}PackageInfo.checksum | sed 's/ //g')
+  Y=$(cat ${DIR}/checksums/${mod}PackageInfo.checksum | sed 's/ //g')
   if [ "$X" != "$Y" ]
     then
     checker="true"
-    ##change this position.
-    echo $X > checksums/${mod}PackageInfo.checksum
+    echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
   fi
 done
 
@@ -31,7 +28,7 @@ od;
 function() local a; for a in NamesGVars() do if ISB_GVAR(a) then
 VAL_GVAR(a); fi;od;end;
 last();
-SaveWorkspace("checksums/homalg_workspace");
+SaveWorkspace("${DIR}/checksums/homalg_workspace");
 quit;
 EOF
 fi
