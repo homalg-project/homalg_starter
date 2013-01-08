@@ -2,7 +2,7 @@
 
 . init_homalg_starter
 
-mkdir checksums
+mkdir -p checksums
 
 for mod in ${homalg_modules}; do
   X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
