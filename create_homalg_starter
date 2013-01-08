@@ -13,10 +13,10 @@ done
 
 echo "export DIR=${DIR}" > $start_script
 echo ". ${DIR}/homalg_starter" >> $start_script
-echo "gap -R -L ${DIR}/checksums/homalg_workspace \"\$@\"" >> $start_script
+echo "${gap_bin} -R -L ${DIR}/checksums/homalg_workspace \"\$@\"" >> $start_script
 chmod +x $start_script
 
-gap -r -R <<EOF
+${gap_bin} -r -R <<EOF
 LoadPackage("io");
 ##This needs to be done better
 xx:="${homalg_modules}";

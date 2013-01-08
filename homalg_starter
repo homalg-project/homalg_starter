@@ -16,7 +16,7 @@ done
 
 if [ $checker ]
   then
-  gap -r -R <<EOF
+${gap_bin} -r -R <<EOF
 LoadPackage("io");
 ##This needs to be done better
 xx:="${homalg_modules}";
