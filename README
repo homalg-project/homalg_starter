@@ -4,3 +4,5 @@ HowTo:
 1. Copy init_homalg_starter.SAMPLE to init_homalg_starter, make it executable and modify the paths.
 2. Run create_homalg_starter.
 3. Use your new gap start script.
+
+If you want to have the starter checked for modifications in the git status rather than in the PackageInfo.g, you need to run the *_git commands instead.

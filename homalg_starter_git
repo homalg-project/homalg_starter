@@ -1,0 +1,36 @@
+#!/bin/bash
+
+. ${DIR}/init_homalg_starter
+
+checker=""
+
+for mod in ${homalg_modules}; do
+  X=$(cd ${package_directory}/${mod}/; git status | md5sum | sed 's/ //g')
+  Y=$(cat ${DIR}/checksums/${mod}GitStatus.checksum | sed 's/ //g')
+  if [ "$X" != "$Y" ]
+    then
+    checker="true"
+    echo "hier"
+    echo $X > ${DIR}/checksums/${mod}GitStatus.checksum
+  fi
+done
+
+if [ $checker ]
+  then
+${gap_bin} -r -R <<EOF
+LoadPackage("io");
+##This needs to be done better
+xx:="${homalg_modules}";
+xx:=SplitString(xx," ");
+for i in xx do
+  LoadPackage( i );
+od;
+??blablfdfhskhks
+function() local a; for a in NamesGVars() do if ISB_GVAR(a) then
+VAL_GVAR(a); fi;od;end;
+last();
+SaveWorkspace("${DIR}/checksums/homalg_workspace_git");
+quit;
+EOF
+fi
+

@@ -17,3 +17,4 @@ export package_directory=/path/to/the/gap/pkg
 
 ##The filename where the new homalg gap start script should be created
 export start_script=/new/gap/start/script
+export start_script_git=/new/gap/git/status/start/skript
