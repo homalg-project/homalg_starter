@@ -10,7 +10,6 @@ for mod in ${homalg_modules}; do
   if [ "$X" != "$Y" ]
     then
     checker="true"
-    echo "hier"
     echo $X > ${DIR}/checksums/${mod}GitStatus.checksum
   fi
 done
