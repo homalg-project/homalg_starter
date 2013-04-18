@@ -10,7 +10,7 @@ for mod in ${homalg_modules}; do
   if [ "$X" != "$Y" ]
     then
     checker="true"
-    echo "rebuilding workspace"
+    echo "'git diff' reported changes in the package $mod"
     echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
   fi
 done
