@@ -10,6 +10,7 @@ for mod in ${homalg_modules}; do
   if [ "$X" != "$Y" ]
     then
     checker="true"
+    echo "PackageInfo.g in $mod have been modified"
     echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
   fi
 done

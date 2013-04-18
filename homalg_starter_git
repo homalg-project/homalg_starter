@@ -5,12 +5,13 @@
 checker=""
 
 for mod in ${homalg_modules}; do
-  X=$(cd ${package_directory}/${mod}/; git status | md5sum | sed 's/ //g')
-  Y=$(cat ${DIR}/checksums/${mod}GitStatus.checksum | sed 's/ //g')
+  X=$(cd ${package_directory}/${mod}/; git diff | md5sum | sed 's/ //g')
+  Y=$(cat ${DIR}/checksums/${mod}GitDiff.checksum | sed 's/ //g')
   if [ "$X" != "$Y" ]
     then
     checker="true"
-    echo $X > ${DIR}/checksums/${mod}GitStatus.checksum
+    echo "'git diff' reported changes in the package $mod"
+    echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
   fi
 done
 
