@@ -15,7 +15,7 @@ for mod in ${homalg_modules}; do
   fi
 done
 
-if [ $checker ]
+if [ $checker ]|| ! [  -e ${DIR}/checksums/homalg_workspace_git ]
   then
 ${gap_bin} -r -R <<EOF
 LoadPackage("io");
