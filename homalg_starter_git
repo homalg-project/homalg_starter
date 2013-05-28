@@ -5,7 +5,7 @@
 checker=""
 
 for mod in ${homalg_modules}; do
-  X=$(cd ${package_directory}/${mod}/; git diff | md5sum | sed 's/ //g')
+  X=$(cd ${package_directory}/${mod}/; { git diff; git show; } | md5sum | sed 's/ //g')
   Y=$(cat ${DIR}/checksums/${mod}GitDiff.checksum | sed 's/ //g')
   if [ "$X" != "$Y" ]
     then
