@@ -7,17 +7,15 @@ checker=""
 for mod in ${homalg_modules}; do
   X=$(cd ${package_directory}/${mod}/; { git diff; git show; } | md5sum | sed 's/ //g')
   Y=$(cat ${DIR}/checksums/${mod}GitDiff.checksum | sed 's/ //g')
-  if [ "$X" != "$Y" ]
-    then
+  if [ "$X" != "$Y" ]; then
     checker="true"
     echo "'git diff' reported changes in the package $mod"
     echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
   fi
 done
 
-if [ $checker ]|| ! [  -e ${DIR}/checksums/homalg_workspace_git ]
-  then
-${gap_bin} -r -R <<EOF
+if [ $checker ] || ! [  -e ${DIR}/checksums/homalg_workspace_git ]; then
+    ${gap_bin} -r -R <<EOF
 LoadPackage("io");
 ##This needs to be done better
 xx:="${homalg_modules}";

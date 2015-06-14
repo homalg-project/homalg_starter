@@ -5,15 +5,12 @@
 checker=""
 
 for mod in ${homalg_modules}; do
-    if [ -d ${package_directory}/${mod} ];
-    then
+    if [ -d ${package_directory}/${mod} ]; then
 	X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
 
-	if [ -f ${DIR}/checksums/${mod}PackageInfo.checksum ];
-	then
+	if [ -f ${DIR}/checksums/${mod}PackageInfo.checksum ]; then
 	    Y=$(cat ${DIR}/checksums/${mod}PackageInfo.checksum | sed 's/ //g')
-	    if [ "$X" != "$Y" ]
-	    then
+	    if [ "$X" != "$Y" ]; then
 		checker="true"
 		echo "PackageInfo.g in $mod have been modified"
 		echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
@@ -23,15 +20,12 @@ for mod in ${homalg_modules}; do
 	    echo "Calculating the checksum for the package $mod";
 	    echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
 	fi
-    elif [ -d ${package_directory}/homalg_project/${mod} ];
-    then
+    elif [ -d ${package_directory}/homalg_project/${mod} ]; then
 	X=$(md5sum ${package_directory}/homalg_project/${mod}/PackageInfo.g | sed 's/ //g')
 
-	if [ -f ${DIR}/checksums/${mod}PackageInfo.checksum ];
-	then
+	if [ -f ${DIR}/checksums/${mod}PackageInfo.checksum ]; then
 	    Y=$(cat ${DIR}/checksums/${mod}PackageInfo.checksum | sed 's/ //g')
-	    if [ "$X" != "$Y" ]
-	    then
+	    if [ "$X" != "$Y" ]; then
 		checker="true"
 		echo "PackageInfo.g in $mod have been modified"
 		echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
@@ -46,8 +40,7 @@ for mod in ${homalg_modules}; do
     fi
 done
 
-if [ $checker ]|| ! [  -e ${DIR}/checksums/homalg_workspace ]
-then
+if [ $checker ] || ! [  -e ${DIR}/checksums/homalg_workspace ]; then
     ${gap_bin} -r -R <<EOF
 LoadPackage("io");
 ##This needs to be done better
