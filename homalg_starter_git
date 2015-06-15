@@ -5,13 +5,39 @@
 checker=""
 
 for mod in ${homalg_modules}; do
-  X=$(cd ${package_directory}/${mod}/; { git diff; git show; } | md5sum | sed 's/ //g')
-  Y=$(cat ${DIR}/checksums/${mod}GitDiff.checksum | sed 's/ //g')
-  if [ "$X" != "$Y" ]; then
-    checker="true"
-    echo "'git diff' reported changes in the package $mod"
-    echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
-  fi
+    if [ -d ${package_directory}/${mod} ]; then
+		X=$(cd ${package_directory}/${mod}/; { git diff; git show; } | md5sum | sed 's/ //g')
+
+		if [ -f ${DIR}/checksums/${mod}GitDiff.checksum ]; then
+			Y=$(cat ${DIR}/checksums/${mod}GitDiff.checksum | sed 's/ //g')
+			if [ "$X" != "$Y" ]; then
+				checker="true"
+				echo "'git diff' reported changes in the package $mod"
+					echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
+			fi
+		else
+			checker="true"
+			echo "Calculating the checksum for the package $mod";
+			echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
+		fi
+    elif [ -d ${package_directory}/homalg_project/${mod} ]; then
+		X=$(cd ${package_directory}/homalg_project/${mod}/; { git diff; git show; } | md5sum | sed 's/ //g')
+
+		if [ -f ${DIR}/checksums/${mod}GitDiff.checksum ]; then
+			Y=$(cat ${DIR}/checksums/${mod}GitDiff.checksum | sed 's/ //g')
+			if [ "$X" != "$Y" ]; then
+				checker="true"
+				echo "'git diff' reported changes in the package $mod"
+				echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
+			fi
+		else
+			checker="true"
+			echo "Calculating the checksum for the package $mod";
+			echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
+		fi
+    else
+		echo "${mod} is not a valid package or does not exist in ${package_directory}";
+    fi
 done
 
 if [ $checker ] || ! [  -e ${DIR}/checksums/homalg_workspace_git ]; then
