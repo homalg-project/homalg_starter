@@ -4,10 +4,12 @@
 ## modify the paths.
 
 
-## List of packages you want to have included in the workspace
-## Please never add PolymakeInterface to it, since the polymake session cannot be stored.
-#homalg_modules="SCO AbelianSystems AutoDoc D-Modules Gauss GaussForHomalg GradedModules GradedRingForHomalg HomalgToCAS IO_ForHomalg LocalizeRingForHomalg MapleForHomalg MatricesForHomalg Modules RingsForHomalg SCSCP_ForHomalg Sheaves SimplicialObjects SystemTheory ToolsForHomalg VirtualCAS alexander homalg k-Points LessGenerators Conley alexander LetterPlace SingularForHomalg"
-export homalg_modules="packages_you_want_to_trace"
+## list of packages under homalg_project
+## Please never add PolymakeInterface to it, since the polymake session cannot be stored!
+export homalg_project_modules="4ti2Interface Convex ExamplesForHomalg Gauss GaussForHomalg GradedModules GradedRingForHomalg HomalgToCAS IO_ForHomalg LocalizeRingForHomalg MatricesForHomalg Modules RingsForHomalg SCO ToolsForHomalg ToricVarieties homalg"
+
+## List of packages you want to include in the workspace
+export extra_modules="packages_you_want_to_trace"
 
 ## This needs to be your current gap start script
 export gap_bin=gap

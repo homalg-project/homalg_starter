@@ -6,28 +6,7 @@ DIR=$(cd $(dirname "$0"); pwd)
 
 mkdir -p checksums
 
-for mod in ${homalg_modules}; do
-  X=$(cd ${package_directory}/${mod}/; git diff | md5sum | sed 's/ //g')
-  echo $X > ${DIR}/checksums/${mod}GitDiff.checksum
-done
-
 echo "export DIR=${DIR}" > $start_script_git
 echo ". ${DIR}/homalg_starter_git" >> $start_script_git
 echo "${gap_bin} -R -L ${DIR}/checksums/homalg_workspace_git \"\$@\"" >> $start_script_git
 chmod +x $start_script_git
-
-${gap_bin} -r -R <<EOF
-LoadPackage("io");
-##This needs to be done better
-xx:="${homalg_modules}";
-xx:=SplitString(xx," ");
-for i in xx do
-  LoadPackage( i );
-od;
-??blablfdfhskhks
-function() local a; for a in NamesGVars() do if ISB_GVAR(a) then
-VAL_GVAR(a); fi;od;end;
-last();
-SaveWorkspace("${DIR}/checksums/homalg_workspace_git");
-quit;
-EOF

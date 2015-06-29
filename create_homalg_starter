@@ -6,28 +6,7 @@ DIR=$(cd $(dirname "$0"); pwd)
 
 mkdir -p checksums
 
-for mod in ${homalg_modules}; do
-  X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
-  echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
-done
-
 echo "export DIR=${DIR}" > $start_script
 echo ". ${DIR}/homalg_starter" >> $start_script
 echo "${gap_bin} -R -L ${DIR}/checksums/homalg_workspace \"\$@\"" >> $start_script
 chmod +x $start_script
-
-${gap_bin} -r -R <<EOF
-LoadPackage("io");
-##This needs to be done better
-xx:="${homalg_modules}";
-xx:=SplitString(xx," ");
-for i in xx do
-  LoadPackage( i );
-od;
-??blablfdfhskhks
-function() local a; for a in NamesGVars() do if ISB_GVAR(a) then
-VAL_GVAR(a); fi;od;end;
-last();
-SaveWorkspace("${DIR}/checksums/homalg_workspace");
-quit;
-EOF
