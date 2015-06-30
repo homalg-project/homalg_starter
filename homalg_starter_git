@@ -11,7 +11,7 @@ if [ -d ${package_directory}/homalg_project ]; then
         Y=$(cat ${DIR}/checksums/homalg_projectGitDiff.checksum | sed 's/ //g')
         if [ "$X" != "$Y" ]; then
             checker="true"
-                echo "'git diff' reported changes in the package $mod"
+                echo "'git diff' reported changes in homalg_project"
                 echo $X > ${DIR}/checksums/homalg_projectGitDiff.checksum
         fi
     else
