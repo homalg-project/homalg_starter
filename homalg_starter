@@ -47,7 +47,7 @@ for mod in ${extra_modules}; do
 done
 
 if [ $checker ] || ! [  -e ${DIR}/checksums/homalg_workspace ]; then
-    ${gap_bin} -b -r -R <<EOF
+    ${gap_bin} -b -R <<EOF
 LoadPackage("io");
 ##This needs to be done better
 xx:="${homalg_project_modules}";;
