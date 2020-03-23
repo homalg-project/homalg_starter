@@ -15,7 +15,7 @@ export extra_modules="packages_you_want_to_trace"
 export gap_bin=gap
 
 ##The folder where the packages of the homalg project are stored
-export package_directory=/path/to/the/gap/pkg
+export pkg_dir=/path/to/the/gap/pkg
 
 ##The filename where the new homalg gap start script should be created
 export start_script=/new/gap/start/script

@@ -5,8 +5,8 @@
 checker=""
 
 for mod in ${homalg_project_modules}; do
-    if [ -r ${package_directory}/homalg_project/${mod}/PackageInfo.g ]; then
-        X=$(md5sum ${package_directory}/homalg_project/${mod}/PackageInfo.g | sed 's/ //g')
+    if [ -r ${pkg_dir}/pkg/homalg_project/${mod}/PackageInfo.g ]; then
+        X=$(md5sum ${pkg_dir}/pkg/homalg_project/${mod}/PackageInfo.g | sed 's/ //g')
         
         if [ -f ${DIR}/checksums/${mod}PackageInfo.checksum ]; then
             Y=$(cat ${DIR}/checksums/${mod}PackageInfo.checksum | sed 's/ //g')
@@ -21,13 +21,13 @@ for mod in ${homalg_project_modules}; do
             echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
         fi
     else
-        echo "${mod} is not a valid package or does not exist in ${package_directory}";
+        echo "${mod} is not a valid package or does not exist in ${pkg_dir}/pkg";
     fi
 done
 
 for mod in ${extra_modules}; do
-    if [ -r ${package_directory}/${mod}/PackageInfo.g ]; then
-        X=$(md5sum ${package_directory}/${mod}/PackageInfo.g | sed 's/ //g')
+    if [ -r ${pkg_dir}/pkg/${mod}/PackageInfo.g ]; then
+        X=$(md5sum ${pkg_dir}/pkg/${mod}/PackageInfo.g | sed 's/ //g')
         
         if [ -f ${DIR}/checksums/${mod}PackageInfo.checksum ]; then
             Y=$(cat ${DIR}/checksums/${mod}PackageInfo.checksum | sed 's/ //g')
@@ -42,12 +42,13 @@ for mod in ${extra_modules}; do
             echo $X > ${DIR}/checksums/${mod}PackageInfo.checksum
         fi
     else
-        echo "${mod} is not a valid package or does not exist in ${package_directory}";
+        echo "${mod} is not a valid package or does not exist in ${pkg_dir}/pkg";
     fi
 done
 
 if [ $checker ] || ! [  -e ${DIR}/checksums/homalg_workspace ]; then
-    ${gap_bin} -b -R <<EOF
+    ## we need the -r to have the history of the previous sessions
+    ${gap_bin} -b -R -r -l "${pkg_dir};" <<EOF
 LoadPackage("io");
 ##This needs to be done better
 xx:="${homalg_project_modules}";;
