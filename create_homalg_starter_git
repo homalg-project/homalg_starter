@@ -6,7 +6,11 @@ DIR=$(cd $(dirname "$0"); pwd)
 
 mkdir -p checksums
 
+echo "Creating $start_script_git"
+
 echo "export DIR=${DIR}" > $start_script_git
 echo ". ${DIR}/homalg_starter_git" >> $start_script_git
+echo "echo Loading workspace:" >> $start_script_git
+echo "echo ${DIR}/checksums/homalg_workspace_git" >> $start_script_git
 echo "${gap_bin} -R -L ${DIR}/checksums/homalg_workspace_git \"\$@\"" >> $start_script_git
 chmod +x $start_script_git
